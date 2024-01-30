@@ -15,32 +15,27 @@ export default {
     .setName("spawn")
     .setDescription("Generate the verification message!"),
   async callback(interaction: CommandInteraction) {
-    
+
     function isOwner(ownerId: string | number): boolean {
       if (typeof ownerId === "number") {
         ownerId = ownerId.toString();
       }
       return ownerIDS.includes(ownerId);
     }
-    
-    const userId = interaction.user.id; 
-    if (!isOwner(userId)) {
-      return interaction.reply({
-        ephemeral: true,
-        embeds: [await embeds.lackPermissionsEmebd()],
-      });
-    }
 
-    /* if (
+    if (
       !(
         interaction.member?.permissions as Readonly<PermissionsBitField>
-      ).has(PermissionsBitField.Flags.ManageGuild)
+      ).has(PermissionsBitField.Flags.ManageGuild) ||
+      !isOwner(
+        interaction.user.id
+      )
     ) {
       return interaction.reply({
         ephemeral: true,
         embeds: [await embeds.lackPermissionsEmebd()],
       });
-    } */
+    }
 
     const actionRow = new ActionRowBuilder<ButtonBuilder>().addComponents(
       new ButtonBuilder()

@@ -11,6 +11,7 @@ import { readdirSync } from "fs";
 import { join } from "path";
 import { config } from "../util/config";
 import { IButton, ICommand, IEvent } from "../interfaces/IApplication";
+import "colors";
 
 export class BotClient {
   public events = new Collection<string, IEvent>();
@@ -69,21 +70,24 @@ export class BotClient {
 
   private async registerAntiCrash() {
     process.on('unhandledRejection', (reason: any, p: Promise<any>) => {
-      console.log('\n\n\n\n\n\n [antiCrash] :: Unhandled Rejection/Catch');
-      console.log('Reason: ', reason.stack ? String(reason.stack) : String(reason), p);
-      console.log(' [antiCrash] :: Unhandled Rejection/Catch \n\n\n\n\n\n');
+      console.log('\n\n\n\n\n=== unhandled Rejection ==='.toUpperCase().yellow.dim);
+      console.log('Reason: ', reason.stack ? String(reason.stack).gray : String(reason).gray);
+      console.log('=== unhandled Rejection ===\n\n\n\n\n'.toUpperCase().yellow.dim);
     });
-    
     process.on("uncaughtException", (err: Error, origin: string) => {
-      console.log('\n\n\n\n\n\n [antiCrash] :: Uncaught Exception/Catch');
-      console.log('Exception: ', err.stack ? err.stack : err, origin);
-      console.log(' [antiCrash] :: Uncaught Exception/Catch \n\n\n\n\n\n');
+      console.log('\n\n\n\n\n\n=== uncaught Exception ==='.toUpperCase().yellow.dim);
+      console.log('Exception: ', err.stack ? err.stack : err)
+      console.log('=== uncaught Exception ===\n\n\n\n\n'.toUpperCase().yellow.dim);
     });
-    
     process.on('uncaughtExceptionMonitor', (err: Error, origin: string) => {
-      console.log('\n\n\n\n\n\n [antiCrash] :: Uncaught Exception/Catch (MONITOR)');
-      console.log(err.stack ? err.stack : err, origin);
-      console.log(' [antiCrash] :: Uncaught Exception/Catch (MONITOR) \n\n\n\n\n\n');
+      console.log('\n\n\n\n\n=== uncaught Exception Monitor ==='.toUpperCase().yellow.dim);
+      console.log('Exception: ', err.stack ? err.stack : err)
+      console.log('=== uncaught Exception Monitor ===\n\n\n\n\n'.toUpperCase().yellow.dim);
     });
+    process.on('warning', (err: Error) => {
+      console.log('\n\n\n\n\n=== uncaught Warning ==='.toUpperCase().yellow.dim);
+      console.log('Exception: ', err.stack ? err.stack : err)
+      console.log('=== uncaught Warning ===\n\n\n\n\n'.toUpperCase().yellow.dim);
+  })
   }
 }

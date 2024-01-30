@@ -10,7 +10,8 @@ const defaultConfig: IConfig = {
   token: process.env.TOKEN || "",
   clientId: process.env.CLIENT_ID || "",
   colour: process.env.COLOUR || "",
-  port: process.env.PORT || "",
+  port: process.env.PORT || "3000",
+  ownerIDs: [],
   log: {
     guildId: process.env.GUILD_ID || "",
     channelId: process.env.CHANNEL_ID || "",
@@ -34,4 +35,6 @@ export const saveRoleConfig = (roles: { [key: string]: string }) => {
   fs.writeFileSync(CONFIG_PATH, JSON.stringify(config, null, 2));
 };
 
-export { config };
+export { 
+  config 
+};

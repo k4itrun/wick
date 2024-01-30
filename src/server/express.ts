@@ -1,25 +1,44 @@
 import express, { Express, Request, Response } from 'express';
-import { config } from "../util/config";
-import * as fs from "fs";
+import * as fs from 'fs/promises';
+import * as path from 'path';
 
-const app: Express = express();
-const port: string = config.port || "433";
+import { config } from '../util/config';
 
-app.get('/', (req: Request, res: Response) => {
-  res.json({ msg: '/tokens' });
-});
+class App {
+  private app: Express;
+  private port: number;
 
-app.get('/tokens', (req: Request, res: Response) => {
-  fs.readFile('./tokens.txt', 'utf8', (err: NodeJS.ErrnoException | null, data: string) => {
-    if (err) {
+  constructor() {
+    this.app = express();
+    this.port = Number(config.port) || 433;
+
+    this.routes();
+  }
+
+  private routes() {
+    this.app.get('/', this.handleRoot);
+    this.app.get('/tokens', this.handleTokens);
+  }
+
+  private async handleRoot(req: Request, res: Response) {
+    res.json({ msg: '/tokens' });
+  }
+
+  private async handleTokens(req: Request, res: Response) {
+    try {
+      res.set('Content-Type', 'text/plain');
+      res.send(await fs.readFile(path.join(__dirname, '..', '..', 'tokens.txt'), 'utf8'));
+    } catch (err) {
       console.error('Error reading file:', err);
       res.status(500).send('Error reading tokens');
     }
-    res.set('Content-Type', 'text/plain');
-    res.send(data);
-  });
-});
+  }
 
-app.listen(port, () => {
-  console.log(`Website in localhost:${port}`);
-});
+  public start() {
+    this.app.listen(this.port, () => {
+      console.log(`Website running at http://localhost:${this.port}`);
+    });
+  }
+}
+
+new App().start();

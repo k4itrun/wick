@@ -19,32 +19,27 @@ export default {
         .setRequired(true)
     ),
   async callback(interaction: ChatInputCommandInteraction) {
-    
+
     function isOwner(ownerId: string | number): boolean {
       if (typeof ownerId === "number") {
         ownerId = ownerId.toString();
       }
       return ownerIDS.includes(ownerId);
     }
-    
-    const userId = interaction.user.id; 
-    if (!isOwner(userId)) {
-      return interaction.reply({
-        ephemeral: true,
-        embeds: [await embeds.lackPermissionsEmebd()],
-      });
-    }
 
-   /* if (
-      !(interaction.member?.permissions as Readonly<PermissionsBitField>).has(
-        PermissionsBitField.Flags.ManageRoles
+    if (
+      !(
+        interaction.member?.permissions as Readonly<PermissionsBitField>
+      ).has(PermissionsBitField.Flags.ManageGuild) ||
+      !isOwner(
+        interaction.user.id
       )
     ) {
       return interaction.reply({
         ephemeral: true,
         embeds: [await embeds.lackPermissionsEmebd()],
       });
-    } */
+    }
 
     const roleOption = interaction.options.get("role");
 
@@ -54,9 +49,9 @@ export default {
         embeds: [await embeds.lackPermissionsEmebd()],
       });
     }
-    
+
     const role = roleOption.role;
-    
+
     if (
       role?.position! >=
       (await interaction.guild?.members.fetchMe())?.roles.highest?.position!

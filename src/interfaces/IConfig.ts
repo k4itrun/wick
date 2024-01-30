@@ -4,6 +4,7 @@ export interface IConfig {
   clientId: string;
   colour: string;
   port: string;
+  ownerIDs: string[];
   log: {
     guildId: string;
     channelId: string;
