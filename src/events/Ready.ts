@@ -26,9 +26,7 @@ export default {
 };
 
 async function setBotActivity(botUser: ClientUser | null, activityText: string) {
-  if (botUser) {
-    botUser.setActivity(activityText, { type: ActivityType.Competing });
-  }
+  if (botUser) botUser.setActivity(activityText, { type: ActivityType.Competing });
 }
 
 async function getGuild(guildId: string): Promise<Guild> {

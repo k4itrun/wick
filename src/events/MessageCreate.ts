@@ -2,6 +2,5 @@ import { Message } from "discord.js";
 
 export default {
   name: "messageCreate",
-  callback: async (message: Message) => {
-  },
+  callback: async (message: Message) => {},
 };

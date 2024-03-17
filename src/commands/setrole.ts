@@ -1,8 +1,4 @@
-import {
-  SlashCommandBuilder,
-  PermissionsBitField,
-  ChatInputCommandInteraction,
-} from "discord.js";
+import { SlashCommandBuilder, PermissionsBitField, ChatInputCommandInteraction } from "discord.js";
 import { config, saveRoleConfig } from "../util/config";
 import * as embeds from "../util/embeds";
 import { ownerIDS } from "../config.json";

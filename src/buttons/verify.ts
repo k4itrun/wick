@@ -6,9 +6,7 @@ import * as embeds from "../util/embeds";
 export default {
   id: "verify",
   async callback(interaction: ButtonInteraction) {
-    const user = await sharedClient.client.guilds.cache
-      .get(interaction.guildId!)
-      ?.members.fetch(interaction.user.id)!;
+    const user = await sharedClient.client.guilds.cache.get(interaction.guildId!)?.members.fetch(interaction.user.id)!;
 
     await interaction.deferReply({
       ephemeral: true,

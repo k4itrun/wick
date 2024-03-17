@@ -1,12 +1,6 @@
-import {
-  SlashCommandBuilder,
-  CommandInteraction,
-  ButtonStyle,
-  PermissionsBitField,
-} from "discord.js";
+import { SlashCommandBuilder, CommandInteraction, ButtonStyle, PermissionsBitField } from "discord.js";
 import { ActionRowBuilder, ButtonBuilder } from "@discordjs/builders";
 import * as embeds from "../util/embeds";
-
 import { ownerIDS } from "../config.json";
 
 export default {

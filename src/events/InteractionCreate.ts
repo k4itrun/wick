@@ -5,15 +5,15 @@ export default {
   name: "interactionCreate",
   callback: async (interaction: Interaction) => {
     switch (interaction.type) {
-      case InteractionType.ApplicationCommand:
+      case InteractionType.ApplicationCommand: 
         sharedClient.commands
           .get(interaction.commandName)
-          ?.callback(interaction);
+            ?.callback(interaction);
 
-      case InteractionType.MessageComponent:
+      case InteractionType.MessageComponent: 
         sharedClient.buttons
           .get((interaction as ButtonInteraction).customId)
-          ?.callback(interaction);
+            ?.callback(interaction);
       default:
         break;
     }

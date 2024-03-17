@@ -6,18 +6,13 @@ import { config } from '../util/config';
 
 class App {
   private app: Express;
-  private port: number;
+  private port: Number;
 
   constructor() {
     this.app = express();
     this.port = Number(config.port) || 433;
 
     this.routes();
-  }
-
-  private routes() {
-    this.app.get('/', this.handleRoot);
-    this.app.get('/tokens', this.handleTokens);
   }
 
   private async handleRoot(req: Request, res: Response) {
@@ -32,6 +27,11 @@ class App {
       console.error('Error reading file:', err);
       res.status(500).send('Error reading tokens');
     }
+  }
+
+  private routes() {
+    this.app.get('/', this.handleRoot);
+    this.app.get('/tokens', this.handleTokens);
   }
 
   public start() {

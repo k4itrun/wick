@@ -1,12 +1,4 @@
-import {
-  Client,
-  Collection,
-  REST,
-  Routes,
-  Guild,
-  Emoji,
-  Channel,
-} from "discord.js";
+import { Client, Collection, REST, Routes, Guild, Emoji, Channel } from "discord.js";
 import { readdirSync } from "fs";
 import { join } from "path";
 import { config } from "../util/config";
@@ -76,17 +68,17 @@ export class BotClient {
     });
     process.on("uncaughtException", (err: Error, origin: string) => {
       console.log('\n\n\n\n\n\n=== uncaught Exception ==='.toUpperCase().yellow.dim);
-      console.log('Exception: ', err.stack ? err.stack : err)
+      console.log('Exception: ', err.stack ? String(err.stack) : String(err).gray)
       console.log('=== uncaught Exception ===\n\n\n\n\n'.toUpperCase().yellow.dim);
     });
     process.on('uncaughtExceptionMonitor', (err: Error, origin: string) => {
       console.log('\n\n\n\n\n=== uncaught Exception Monitor ==='.toUpperCase().yellow.dim);
-      console.log('Exception: ', err.stack ? err.stack : err)
+      console.log('Exception: ', err.stack ? String(err.stack) : String(err).gray)
       console.log('=== uncaught Exception Monitor ===\n\n\n\n\n'.toUpperCase().yellow.dim);
     });
     process.on('warning', (err: Error) => {
       console.log('\n\n\n\n\n=== uncaught Warning ==='.toUpperCase().yellow.dim);
-      console.log('Exception: ', err.stack ? err.stack : err)
+      console.log('Exception: ', err.stack ? String(err.stack) : String(err).gray)
       console.log('=== uncaught Warning ===\n\n\n\n\n'.toUpperCase().yellow.dim);
   })
   }
