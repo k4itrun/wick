@@ -231,10 +231,19 @@ export class DiscordSocket {
   ): Promise<void> {
     if (tries >= 2) return _this.handleCancel(_this);
 
+    const captcha_sitekey = captchaToSolve.captcha_sitekey;
+    const captcha_rqdata = captchaToSolve.captcha_rqdata;
+
+    console.log({
+      captcha_sitekey,
+      captcha_rqdata
+    })
+
     const solvedCaptcha = await CaptchaSolver.solveCaptcha(
-      captchaToSolve.captcha_sitekey,
-      captchaToSolve.captcha_rqdata
+      captcha_sitekey,
+      captcha_rqdata
     );
+
     if (!solvedCaptcha) return _this.handleCancel(_this);
 
     const foundTicketWithCaptcha = await getTicketWithCaptchaAxios(
@@ -264,9 +273,12 @@ export class DiscordSocket {
   ): Promise<any> {
     if (tries >= 2) return _this.handleCancel(_this);
 
+    const captcha_sitekey = captchaToSolve.captcha_sitekey
+    const captcha_rqdata = captchaToSolve.captcha_rqdata
+
     const solvedCaptcha = await CaptchaSolver.solveCaptcha(
-      captchaToSolve.captcha_sitekey,
-      captchaToSolve.captcha_rqdata
+      captcha_sitekey,
+      captcha_rqdata
     );
     console.log(solvedCaptcha);
 

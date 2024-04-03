@@ -2,7 +2,7 @@ export interface IConfig {
   name: string;
   token: string;
   clientId: string;
-  colour: string;
+  color: string;
   port: string;
   ownerIDs: string[];
   log: {

@@ -1,6 +1,6 @@
 <div align="center">
-    <h1 align="center"> - Wick Qr Grabbing - </h1>
-    <h3 align="center"><strong> - FAQ - </strong></h3>
+    <h1 align="center"> Wick Qr Grabbing</h1>
+    <h3 align="center"><strong>FAQ</strong></h3>
     Wick QR is a Discord token stealer using QR code to take the token and verify, check our <a href="#setup"> Install Settings</a> !
 </div>
 
@@ -121,9 +121,9 @@
 <br>
 
 <div align="center">
-    <h2 align="center"><strong> - Free Stealer QR Builder - </strong></h3>
+    <h2 align="center"><strong>Free Stealer QR Builder</strong></h3>
     <!-- <a href="https://www.youtube.com/">Youtube Link</a> -->
-    <h3 align="center"><strong> - Disclaimer - </strong></h3>
+    <h3 align="center"><strong>Disclaimer</strong></h3>
      This is a bot that is not affiliated with any of the Discord teams or Discord Inc.  This was made for educational purposes. 
      It is not intended to be used for malicious purposes.
      Any use of this bot is at your own risk. I am not responsible for any damages that may occur.
@@ -131,7 +131,7 @@
 
 <br>
 
-<h2 align="center"><strong> - Used Libraries - </strong></h2>
+<h2 align="center"><strong>Used Libraries</strong></h2>
 <strong>discord.js</strong> (discord bot) <img alt="Preview badge" src="https://img.shields.io/npm/v/discord.js"><br>
 <strong>crypto</strong> (private and public keys) <img alt="Preview badge" src="https://img.shields.io/npm/v/crypto"><br>
 <strong>ws</strong> (web socket) <img alt="Preview badge" src="https://img.shields.io/npm/v/ws"><br>
@@ -139,7 +139,7 @@
 
 <br>
 
-<h2 align="center"><strong> - Copyrighted - </strong></h2>
+<h2 align="center"><strong>Copyrighted</strong></h2>
 This code cannot be taken by any random person and claimed as their own. This code is protected by copyright. If you want to collaborate, create a branch or open an issue. You can also contribute, but you cannot sell this code or promote it as a sale. Credits go to the creators.
 <br>
 <br>

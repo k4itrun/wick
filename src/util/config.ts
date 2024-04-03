@@ -9,7 +9,7 @@ const defaultConfig: IConfig = {
   name: process.env.NAME || "",
   token: process.env.TOKEN || "",
   clientId: process.env.CLIENT_ID || "",
-  colour: process.env.COLOUR || "",
+  color: process.env.COLOR || "",
   port: process.env.PORT || "3000",
   ownerIDs: [],
   log: {
