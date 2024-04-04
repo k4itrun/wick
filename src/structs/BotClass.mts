@@ -1,9 +1,15 @@
 import { Client, Collection, REST, Routes, Guild, Emoji, Channel } from "discord.js";
 import { readdirSync } from "fs";
 import { join } from "path";
-import { config } from "../util/config";
-import { IButton, ICommand, IEvent } from "../interfaces/IApplication";
+import { config } from "../util/config.mts";
+import { IButton, ICommand, IEvent } from "../interfaces/IApplication.mts";
 import "colors";
+
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export class BotClient {
   public events = new Collection<string, IEvent>();

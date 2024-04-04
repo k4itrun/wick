@@ -1,9 +1,13 @@
 import "dotenv/config";
 import path from "path";
-import { IConfig } from "../interfaces/IConfig";
+import { IConfig } from "../interfaces/IConfig.mts";
 import fs from "fs";
+import { fileURLToPath } from 'url';
 
-const CONFIG_PATH = path.resolve(__dirname, "..", "config.json");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const CONFIG_PATH: string = path.resolve(__dirname, "..", "config.json");
 
 const defaultConfig: IConfig = {
   name: process.env.NAME || "",
@@ -30,11 +34,9 @@ try {
   config = defaultConfig;
 }
 
-export const saveRoleConfig = (roles: { [key: string]: string }) => {
+export const saveRoleConfig = (roles: { [key: string]: string }): void => {
   config.roles = roles;
   fs.writeFileSync(CONFIG_PATH, JSON.stringify(config, null, 2));
 };
 
-export { 
-  config 
-};
+export { config };

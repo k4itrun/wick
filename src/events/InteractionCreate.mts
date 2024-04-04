@@ -1,5 +1,5 @@
 import { Interaction, InteractionType, ButtonInteraction } from "discord.js";
-import { sharedClient } from "..";
+import { sharedClient } from "../index.mts";
 
 export default {
   name: "interactionCreate",

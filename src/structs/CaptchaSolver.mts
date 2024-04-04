@@ -1,5 +1,5 @@
 import { HCaptchaTask } from "node-capmonster";
-import { config } from "../util/config";
+import { config } from "../util/config.mts";
 
 export class CaptchaSolver {
   private static apiKey: string = config.capmonster.key;

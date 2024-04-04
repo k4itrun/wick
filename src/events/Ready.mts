@@ -1,6 +1,6 @@
 import { ActivityType, ClientUser, Guild, TextChannel } from "discord.js";
-import { sharedClient } from "..";
-import { config } from "../util/config";
+import { sharedClient } from "../index.mts";
+import { config } from "../util/config.mts";
 
 export default {
   name: "ready",

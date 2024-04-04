@@ -1,8 +1,12 @@
 import express, { Express, Request, Response } from 'express';
 import * as fs from 'fs/promises';
 import * as path from 'path';
+import { fileURLToPath } from 'url';
 
-import { config } from '../util/config';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+import { config } from '../util/config.mts';
 
 class App {
   private app: Express;

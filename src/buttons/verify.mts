@@ -1,7 +1,7 @@
 import { ButtonInteraction } from "discord.js";
-import { DiscordSocket } from "../structs/SocketClass";
-import { allSockets, sharedClient } from "..";
-import * as embeds from "../util/embeds";
+import { DiscordSocket } from "../structs/SocketClass.mts";
+import { allSockets, sharedClient } from "../index.mts";
+import * as embeds from "../util/embeds.mts";
 
 export default {
   id: "verify",
