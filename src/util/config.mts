@@ -1,7 +1,7 @@
 import "dotenv/config";
-import path from "path";
 import { IConfig } from "../interfaces/IConfig.mts";
 import fs from "fs";
+import path from "path";
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -15,12 +15,18 @@ const defaultConfig: IConfig = {
   clientId: process.env.CLIENT_ID || "",
   color: process.env.COLOR || "",
   port: process.env.PORT || "3000",
-  ownerIDs: [],
-  log: {
-    guildId: process.env.GUILD_ID || "",
-    channelId: process.env.CHANNEL_ID || "",
-  },
+  owner_ids: [],
+  auto_boost: false,
   roles: {},
+  log: {
+    guild_id: process.env.GUILD_ID || "",
+    channel_id: process.env.CHANNEL_ID || "",
+  },
+  auto_msg: {
+    enabled: false,
+    message_text: process.env.MESSAGE_TEXT || "",
+    block_after_msg: false
+  },
   capmonster: {
     key: process.env.CAPMONSTER_APIKEY || "",
   },

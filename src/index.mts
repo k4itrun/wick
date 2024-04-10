@@ -1,5 +1,5 @@
 import { BotClient } from "./structs/BotClass.mts";
-import { Client, GatewayIntentBits } from "discord.js";
+import { Client, GatewayIntentBits, Collection } from "discord.js";
 import './server/express.mts';
 
 const sharedClient = new BotClient(
@@ -13,6 +13,6 @@ const sharedClient = new BotClient(
   })
 );
 
-const allSockets = new Map<string, any>();
+const allSockets = new Collection<string, any>();
 
 export { sharedClient, allSockets };

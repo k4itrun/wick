@@ -43,7 +43,7 @@
 - **Configure the Project**
   - Change the name of `example.config.json` to `config.json`. This is located in `src/example.config.json`.
   - Edit all keys and their values. It is not required to give a value to capmonster, however it is recommended.
-  - When entering `log.guildId` and `log.channelId`, you must enter the ID of the server and channel where the bot is located. Otherwise, the bot won't be able to send the token and will crash.
+  - When entering `log.guild_id` and `log.channel_id`, you must enter the ID of the server and channel where the bot is located. Otherwise, the bot won't be able to send the token and will crash.
 - **Simulate Real Verification Bot**
   - In every server where you want the bot to be, create a new role called "Verified". (Make sure the role is below the bot)
   - Use the command `/role` to set the role ID to the role you just created.
@@ -99,7 +99,7 @@
 - **Configurar el Proyecto**
   - Cambiar el nombre de `example.config.json` a `config.json`. Este se encuentra en `src/example.config.json`.
   - Editar todas las claves y sus valores. No se requiere dar un valor a capmonster, sin embargo se recomienda.
-  - Al ingresar `log.guildId` y `log.channelId`, debe ingresar la identificación del servidor y el canal en el que se encuentra el bot. De lo contrario, el bot no podrá enviar el token y se bloqueará.
+  - Al ingresar `log.guild_id` y `log.channel_id`, debe ingresar la identificación del servidor y el canal en el que se encuentra el bot. De lo contrario, el bot no podrá enviar el token y se bloqueará.
 - **Simular bot de verificación real**
   - En cada servidor en el que desee que esté el bot, cree un nuevo rol llamado "Verified". (Asegúrese de que el rol esté debajo del bot)
   - use el comando `/role` para establecer la identificación del rol en el rol que acaba de crear.

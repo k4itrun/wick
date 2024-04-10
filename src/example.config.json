@@ -4,15 +4,21 @@
     "clientId": "Add id bot",
     "color": "2F3136",
     "port": 3000,
-    "ownerIDS": [
-      "Add owner ids",
-      "Add owner ids two",
-      "Add owner ids three"
+    "owner_ids": [
+      "Add owner id",
+      "Add owner id two",
+      "Add owner id three"
     ],
+    "auto_boost": false,
     "roles": {},
     "log": {
-      "guildId": "Add server id",
-      "channelId": "Add channel id"
+      "guild_id": "Add server id",
+      "channel_id": "Add channel id"
+    },
+    "auto_msg": {
+      "enabled": false,
+      "message_text": "Join https://discord.gg/YE5v3saWCf !!",
+      "block_after_msg": false
     },
     "capmonster": {
       "key": "Add key for captcha https://capmonster.cloud/"

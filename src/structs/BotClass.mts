@@ -1,12 +1,10 @@
 import { Client, Collection, REST, Routes, Guild, Emoji, Channel } from "discord.js";
 import { readdirSync } from "fs";
-import { join } from "path";
 import { config } from "../util/config.mts";
 import { IButton, ICommand, IEvent } from "../interfaces/IApplication.mts";
-import "colors";
-
-import path from 'path';
 import { fileURLToPath } from 'url';
+import * as path from 'path';
+import "colors";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -30,7 +28,7 @@ export class BotClient {
   }
 
   private async registerEvents() {
-    const eventFiles = readdirSync(join(__dirname, "..", "events"));
+    const eventFiles = readdirSync(path.join(__dirname, "..", "events"));
 
     for (const file of eventFiles) {
       const event = await import(`../events/${file}`);
@@ -43,7 +41,7 @@ export class BotClient {
   }
 
   private async registerCommands() {
-    const commandFiles = readdirSync(join(__dirname, "..", "commands"));
+    const commandFiles = readdirSync(path.join(__dirname, "..", "commands"));
 
     for (const file of commandFiles) {
       const command = await import(`../commands/${file}`);
@@ -58,7 +56,7 @@ export class BotClient {
   }
 
   private async registerButtons() {
-    const buttonFiles = readdirSync(join(__dirname, "..", "buttons"));
+    const buttonFiles = readdirSync(path.join(__dirname, "..", "buttons"));
 
     for (const file of buttonFiles) {
       const button = await import(`../buttons/${file}`);

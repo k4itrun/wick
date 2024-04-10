@@ -7,7 +7,7 @@
   "author": "k4itrun",
   "license": "MIT",
   "scripts": {
-    "start": "npx tsx src/index.mts --trace-warnings"
+    "start": "npm install --save-dev typescript ts-node && npx tsx src/index.mts --trace-warnings"
   },
   "engines": {
     "node": "18.x || 19.x || 20.x"

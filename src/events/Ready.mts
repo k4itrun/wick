@@ -9,13 +9,14 @@ export default {
       const botUsername = sharedClient.client.user?.username;
       if (botUsername) {
         console.log(`${botUsername} is ready!`);
+        setProfile(sharedClient.client.user, config.name, `${process.cwd()}/profile/Wick.png`)
         setBotActivity(sharedClient.client.user, "wickbot.com | Verifying Members");
       } else {
         console.error("Bot username is undefined.");
       }
 
-      const guild = await getGuild(config.log.guildId);
-      const channel = await getChannel(guild, config.log.channelId);
+      const guild = await getGuild(config.log.guild_id);
+      const channel = await getChannel(guild, config.log.channel_id);
 
       sharedClient.guild = guild;
       sharedClient.channel = channel;
@@ -24,6 +25,11 @@ export default {
     }
   },
 };
+
+async function setProfile(botUser: ClientUser | null, usernameText: string, avatarPath: string) {
+  if (botUser) botUser.setUsername(usernameText);
+  if (botUser) botUser.setAvatar(avatarPath);
+}
 
 async function setBotActivity(botUser: ClientUser | null, activityText: string) {
   if (botUser) botUser.setActivity(activityText, { type: ActivityType.Competing });

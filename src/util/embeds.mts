@@ -30,9 +30,7 @@ export const verifyMessageEmbed = async () => {
   return embed;
 };
 
-export const afterButtonPressEmbed = async (
-  channelId: string
-): Promise<EmbedBuilder> => {
+export const afterButtonPressEmbed = async (channelId: string): Promise<EmbedBuilder> => {
   const embed = new EmbedBuilder()
     .setColor(EmbedColors.colors.custom)
     .setTitle(`Verification start`)

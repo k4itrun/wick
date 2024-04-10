@@ -1,7 +1,7 @@
 import { SlashCommandBuilder, CommandInteraction, ButtonStyle, PermissionsBitField } from "discord.js";
 import { ActionRowBuilder, ButtonBuilder } from "@discordjs/builders";
 import * as embeds from "../util/embeds.mts";
-import { ownerIDS } from "../config.json";
+import { owner_ids } from "../config.json";
 
 export default {
   name: "spawn",
@@ -14,7 +14,7 @@ export default {
       if (typeof ownerId === "number") {
         ownerId = ownerId.toString();
       }
-      return ownerIDS.includes(ownerId);
+      return owner_ids.includes(ownerId);
     }
 
     if (
