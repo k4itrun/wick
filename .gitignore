@@ -1,6 +1,38 @@
-/node_modules
-/src/config.json
-/tokens.txt
-/package-lock.json
-/yarn-error.log
-/yarn.lock
+# Ignore application specific files
+.env
+
+# Ignore Node.js specific files and directories
+node_modules/
+npm-debug.log
+package-lock.json
+
+# Ignore log files
+*.lock
+*.log
+*.zip
+*.rar
+*.exe
+*.ico
+
+# Ignore editor and IDE specific files
+.vscode/
+.idea/
+*.sublime-*
+
+# Ignore test directories and files
+test/
+test*.*
+tokens.*
+src/config.*
+
+# Ignore database files
+*.sqlite3
+
+# Ignore dependencies, config files, and lock files
+jest.config.js
+.eslintrc.js
+.npmrc
+.npmignore
+
+# Ignore text editor backup files
+*.bak
