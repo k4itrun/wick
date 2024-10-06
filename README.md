@@ -76,7 +76,13 @@ npm run start
 </a>
 
 ## Contributing
-Suggestions and contributions are welcome! See the [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+We greatly appreciate any contributions to this project! Whether you want to open new issues, submit pull requests, or share suggestions for improvements, your input is invaluable. We encourage you to refer to our [Contributing Guidelines](CONTRIBUTING.md) to facilitate a seamless collaboration process.
+
+You can support the development of this project by making a donation, which helps bring new, optimized, and improved projects to life. Alternatively, you can simply add a ⭐ star to this repository.
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/A0A11481X5)
+
+Thank you for your interest and support! ✌️
 
 ## Contact
 For inquiries, reach out at [contact@w1sh.xyz](mailto:contact@w1sh.xyz) or join our [Discord Server][discord-server-link].
